@@ -3,6 +3,6 @@
 ### 사용기술 : Java, JavaScript, SQLLite, SpringBoot Framework
 ### 기간 : 2024년 10/26 ~ 11/15 
 
-## 10/26 
+## 10월 26일 
 ### 1. Git Repository 생성
 ### 2. SpringBoot Project 생성
