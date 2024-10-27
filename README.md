@@ -4,7 +4,11 @@
 ### 기간 : 2024년 10/26 ~ 11/15 
 
 ## 10월 26일 
-### 1. Git Repository 생성
-### 2. SpringBoot Project 생성
-### 3. ERD 생성
-### 4. DB구축(SQlite)
+### Git Repository 생성
+### SpringBoot Project 생성
+### ERD 생성
+### DB구축(SQlite)
+
+## 10월 27일
+### 설계서 작성(ppt)
+### DB수정(적요 항목 추가)
