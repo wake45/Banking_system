@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+<div class="container">
+    <div>
+        <h1>이체</h1>
+        <p>
+            <span>출금계좌선택</span>
+            <label>
+                <select>
+                    <option value="">---선택---</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>출금계좌 비밀번호</label>
+            <label>
+                <input type="text"/>
+            </label>
+        </p>
+        <p>
+            <label>보낼 금액</label>
+            <label>
+                <input type="text">
+            </label>
+        </p>
+        <p>
+            <label>입금계좌번호</label>
+            <label>
+                <input type="text">
+            </label>
+        </p>
+        <p>
+            <button>이체</button>
+        </p>
+    </div>
+</div> <!-- /container -->
 </body>
 </html>

@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+<div class="container">
+    <div>
+        <h1>거래내역조회</h1>
+        <p>
+            <span>계좌번호</span>
+            <label>
+                <select>
+                    <option value="">---선택---</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>조회기간</label>
+            <label>
+                <input type="text"/>
+            </label>
+            <label>
+                <input type="text"/>
+            </label>
+        </p>
+        <p>
+            <label>조회내용</label>
+            <label>
+                <input type="radio" name="id" value="1">전체
+                <input type="radio" name="id" value="2">입금내역만
+                <input type="radio" name="id" value="3">출금내역만
+            </label>
+        </p>
+        <p>
+            <label>적요</label>
+            <label>
+                <input type="text">
+            </label>
+        </p>
+        <p>
+            <button>조회</button>
+        </p>
+    </div>
+</div> <!-- /container -->
 </body>
 </html>
