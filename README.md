@@ -22,3 +22,6 @@
 
 ## 11월 10일
 ### DB연결 및 기초 데이터 INSERT
+
+## 11월 12일
+### domain & repository 생성
