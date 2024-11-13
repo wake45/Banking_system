@@ -22,13 +22,6 @@ public class JpaAccountRepository implements AccountRepository {
     }
 
     @Override
-    public int findAccountNumber(String accountNumber) {
-        return ((Number) em.createQuery("select count(a) from Account a where a.accountNumber = :accountNumber")
-                .setParameter("accountNumber", accountNumber)
-                .getSingleResult()).intValue();
-    }
-
-    @Override
     public Optional<String> findId(String accountNumber) {
         return em.createQuery("select a.userId from Account a where a.accountNumber = :accountNumber", String.class)
                 .setParameter("accountNumber", accountNumber)
@@ -45,16 +38,30 @@ public class JpaAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Optional<String> findBalance(String accountNumber) {
-        return em.createQuery("select a.accountBalance from Account a where a.accountNumber = :accountNumber", String.class)
+    public Optional<Integer> findBalance(String accountNumber) {
+        return em.createQuery("select a.accountBalance from Account a where a.accountNumber = :accountNumber", Integer.class)
                 .setParameter("accountNumber", accountNumber)
                 .getResultStream()
                 .findFirst(); // 결과가 없을 경우 Optional.empty() 반환
     }
 
     @Override
-    public Transactions saveTransaction(Transactions transactions) {
-        em.persist(transactions);
+    public Transactions updateAccount(Transactions transactions) {
+
+        if("01".equals(transactions.getTransactionType())){ //출금
+            em.createQuery("UPDATE Account a SET a.accountBalance = a.accountBalance - :accountBalance , a.modifyDate = :modifyDate WHERE a.accountNumber = :accountNumber ")
+                    .setParameter("accountBalance", transactions.getTransactionAmount())
+                    .setParameter("modifyDate", transactions.getTransactionDate())
+                    .setParameter("accountNumber", transactions.getAccountNumber())
+                    .executeUpdate();
+        }else if("02".equals(transactions.getTransactionType())){ //입금
+            em.createQuery("UPDATE Account a SET a.accountBalance = a.accountBalance + :accountBalance , a.modifyDate = :modifyDate WHERE a.accountNumber = :accountNumber ")
+                    .setParameter("accountBalance", transactions.getTransactionAmount())
+                    .setParameter("modifyDate", transactions.getTransactionDate())
+                    .setParameter("accountNumber", transactions.getAccountNumber())
+                    .executeUpdate();
+        }
+
         return transactions;
     }
 }
