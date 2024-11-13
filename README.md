@@ -25,3 +25,7 @@
 
 ## 11월 12일
 ### domain & repository 생성
+
+## 11월 13일
+### repository 수정 & service 생성
+### repository, service, view 수정 & controller 생성 & 의존성 주입
