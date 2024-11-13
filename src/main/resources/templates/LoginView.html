@@ -1,18 +1,23 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>로그인</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 <body>
 <div class="container">
     <div>
-        <h1>로그인</h1>
-        <p>
-            <input type="radio" name="id" value="1">에잇퍼센트
-            <input type="radio" name="id" value="2">카카오뱅크
-            <input type="radio" name="id" value="3">토스뱅크
-
-        </p>
-        <p>
-            <button>로그인</button>
-        </p>
+        <form action="#" th:action="@{/main}" method="post">
+            <h1>로그인</h1>
+            <p>
+                <input type="radio" name="id" value="001" checked>에잇퍼센트
+                <input type="radio" name="id" value="002">카카오뱅크
+                <input type="radio" name="id" value="003">토스뱅크
+            </p>
+            <p>
+                <button type="submit">로그인</button>
+            </p>
+        </form>
     </div>
 </div> <!-- /container -->
 </body>

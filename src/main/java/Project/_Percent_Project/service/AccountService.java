@@ -2,14 +2,18 @@ package Project._Percent_Project.service;
 
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 @Transactional
 public class AccountService {
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
+    @Autowired
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
@@ -35,7 +39,6 @@ public class AccountService {
         accountRepository.updateAccount(transactions); //입금 거래내역 적재
         return transactions.getTransactionId();
     }
-
 
     private void validateAccountOwner(Transactions transactions) {
         Optional<String> optionalUserId = accountRepository.findId(transactions.getAccountNumber());

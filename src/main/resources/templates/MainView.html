@@ -1,16 +1,21 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>메인화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 <body>
 <div class="container">
     <div>
-        <h1>메뉴 선택</h1>
-        <p>
-        <h2><span style="color:springgreen">Name</span> 고객님 반갑습니다!</h2>
-        </p>
-        <p>
-            <button>거래내역조회</button>
-            <button>이체</button>
-        </p>
+        <form action="#" th:action="@{/transfer}" method="post">
+            <h1>메뉴 선택</h1>
+            <h2><span style="color:springgreen" th:text="${name}"></span> 고객님 반갑습니다!</h2>
+            <input type="hidden" name="id" th:value="${id}"/>
+            <p>
+                <button type="submit" name="action" value="transactionsView">거래내역조회</button>
+                <button type="submit" name="action" value="transferView">이체</button>
+            </p>
+        </form>
     </div>
 </div> <!-- /container -->
 </body>

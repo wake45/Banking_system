@@ -3,10 +3,12 @@ package Project._Percent_Project.repository;
 import Project._Percent_Project.domain.Account;
 import Project._Percent_Project.domain.Transactions;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class JpaAccountRepository implements AccountRepository {
 
     private final EntityManager em;

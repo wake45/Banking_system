@@ -3,10 +3,12 @@ package Project._Percent_Project.repository;
 import Project._Percent_Project.domain.Transactions;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public class JpaTransactionsRepository implements TransactionsRepository {
 
     private final EntityManager em;
