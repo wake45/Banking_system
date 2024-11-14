@@ -1,9 +1,9 @@
-## 설명
-### 프로젝트명 : 8Percent Coding Project
-### 사용기술 : Java, JavaScript, SQlite, SpringBoot, JPA
-### 기간 : 2024년 10/26 ~ 11/15 
+# 설명
+## 프로젝트명 : 8Percent Coding Project
+## 사용기술 : Java, JavaScript, SQlite, SpringBoot, JPA
+## 기간 : 2024년 10/26 ~ 11/15 
 
-## 주요 설계 고려 사항 
+# 주요 설계 고려 사항 
 
 ## 이체(출금API + 입금API)
 ### 1. 이체 화면에 진입시 보유계좌 목록을 조회
@@ -27,6 +27,26 @@
 ### 5. 현재페이지 기준으로 앞뒤로 2페이지, 총 5개 페이지블럭이 보여지도록 알고리즘 설계
 ### 6. 거래내역조회 및 페이징처리 완료
 
+# API Endpoint에 대한 설명
+
+## EtcController - 주요 기능을 제외한 기능 테스트를 위한 나머지 controller
+### 1. LoginView(/) : 로그인 화면 호출 & 초기 데이터 세팅(데이터 세팅 후 주석처리)
+### 2. MainView(/main) : 로그인시 선택한 ID값 전달(사용자명 조회 및 세션 처리 생략) 후 거래내역조회 & 이체 메뉴선택 화면으로 이동
+#### - 전달데이터 : ID(사용자 ID)
+
+### TransFerController - 이체(출금,입금) 기능을 위한 controller
+### 1. TransferView(/transferMenu) : 이체 화면 진입 전 보유계좌를 조회 후 이체 화면으로 이동
+#### - 전달데이터 : ID(사용자 ID)
+### 2. Transfer(/transfer) : 실제 이체 실행(주요 고려사항대로 개발) 및 거래내역 적재(예외발생시 전체 트랜잭션 롤백) 후 이체 결과 화면으로 이동
+#### - 전달데이터 : TransferForm객체(출금계좌번호, 출금계좌비밀번호, 이체금액, 입금계좌번호, 적요, ID)
+
+### TransactionsHistoryInquiryController - 거래내역 조회를 위한 controller
+### 1. TransactionsView(/transactionsViewMenu) : 거래내역 조회 화면 진입 전 보유계좌를 조회 후 거래내역 조회 화면으로 이동
+#### - 전달데이터 : ID(사용자 ID)
+### 2. TransactionsHistoryInquiry(/transactionsHistoryInquiry) : 실제 거래내역 조회(주요 고려사항대로 개발) 및 페이징 처리 후 거래내역 조회 결과화면으로 이동
+#### - 전달데이터 : TransactionsHistoryInquiryForm객체(조회계좌번호, 조회시작일자, 조회종료일자, 입출금 조회구분, 정렬 방식, ID) , page(현재 페이지)
+
+# History
 ## 10월 26일 
 ### Git Repository 생성
 ### SpringBoot Project 생성
