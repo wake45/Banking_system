@@ -22,7 +22,7 @@ public class JpaTransactionsRepository implements TransactionsRepository {
         String queryString = "SELECT t FROM Transactions t WHERE t.accountNumber = :accountNumber " +
                              "AND t.transactionDate BETWEEN :startDate AND :endDate " +
                              ("".equals(transactionType) ? "AND t.transactionType IS NOT NULL" : "AND t.transactionType = :transactionType") +
-                             " ORDER BY t.transactionType " + sortOrder;
+                             " ORDER BY t.transactionDate " + sortOrder;
 
         TypedQuery<Transactions> query = em.createQuery(queryString, Transactions.class)
                 .setParameter("accountNumber", accountNumber)

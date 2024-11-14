@@ -7,6 +7,7 @@ import Project._Percent_Project.service.TransactionsService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +38,17 @@ public class TransactionsHistoryInquiryController {
     }
 
     @PostMapping("/transactionsHistoryInquiry")
-    public String TransactionsHistoryInquiry(TransactionsHistoryInquiryForm transactionsHistoryInquiryForm, Model model, @RequestParam("page") int page, @PageableDefault(page = 0 , size = 5) Pageable pageable){
+    public String TransactionsHistoryInquiry(TransactionsHistoryInquiryForm transactionsHistoryInquiryForm, Model model, @RequestParam("page") int page, @PageableDefault(size = 5, sort = "transactionDate") Pageable pageable){
 
         //조회 전 계좌 소유주 조회
         Transactions transaction = new Transactions();
         transaction.setAccountNumber(transactionsHistoryInquiryForm.getAccountNumber());
         accountService.validateDepositAccount(transaction);
 
-        pageable = PageRequest.of(page, pageable.getPageSize());
+        Sort sort = transactionsHistoryInquiryForm.getInquirySort().equalsIgnoreCase("asc") ?
+                Sort.by("transactionDate").ascending() :
+                Sort.by("transactionDate").descending();
+        pageable = PageRequest.of(page, pageable.getPageSize(), sort);
 
         Page<Transactions> transactionList = transactionsService.findTransactions(transactionsHistoryInquiryForm.getAccountNumber(), transactionsHistoryInquiryForm.getInquiryStartDate(), transactionsHistoryInquiryForm.getInquiryEndDate(), transactionsHistoryInquiryForm.getInquiryType(), transactionsHistoryInquiryForm.getInquirySort(), pageable);
 

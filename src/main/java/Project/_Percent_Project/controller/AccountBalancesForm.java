@@ -13,7 +13,15 @@ public class AccountBalancesForm {
         return withdrawBalance;
     }
 
+    public void setWithdrawBalance(Integer withdrawBalance) {
+        this.withdrawBalance = withdrawBalance;
+    }
+
     public Integer getDepositBalance() {
         return depositBalance;
+    }
+
+    public void setDepositBalance(Integer depositBalance) {
+        this.depositBalance = depositBalance;
     }
 }

@@ -35,9 +35,12 @@ public class AccountService {
         Optional<Integer> withdrawAfterBalance = withdraw(withdrawTransaction, accountPassword);
         Optional<Integer> depositAfterBalance = deposit(depositTransaction);
 
-        AccountBalancesForm balances = new AccountBalancesForm(withdrawAfterBalance.get(), depositAfterBalance.get());
+        AccountBalancesForm balances = null;
+        if (withdrawAfterBalance.isPresent() && depositAfterBalance.isPresent()) {
+            balances = new AccountBalancesForm(withdrawAfterBalance.get(),depositAfterBalance.get());
+        }
 
-        return Optional.of(balances);
+        return Optional.ofNullable(balances);
     }
 
     /**
@@ -72,27 +75,27 @@ public class AccountService {
         Optional<String> optionalUserId = accountRepository.findId(transactions.getAccountNumber());
         //계좌 소유주 확인
         optionalUserId.filter(ownerCheck -> ownerCheck.equals(transactions.getWithdrawId()))
-                .orElseThrow(() -> new IllegalStateException("본인 출금계좌만 이체 가능합니다."));
+                .orElseThrow(() -> new TransferException("본인 출금계좌만 이체 가능합니다."));
     }
 
     private void validateAccountPassword(Transactions transactions, String password) {
         Optional<String> optionalPassword = accountRepository.findPassword(transactions.getAccountNumber());
         //계좌 비밀번호 확인
         optionalPassword.filter(passwordCheck -> passwordCheck.equals(password))
-                .orElseThrow(() -> new IllegalStateException("출금계좌 비밀번호가 일치하지 않습니다."));
+                .orElseThrow(() -> new TransferException("출금계좌 비밀번호가 일치하지 않습니다."));
     }
 
     private void validateAccountBalance(Transactions transactions) {
         Optional<Integer> optionalBalance = accountRepository.findBalance(transactions.getAccountNumber());
         //계좌 잔액 확인
         optionalBalance.filter(balanceCheck -> balanceCheck >= transactions.getTransactionAmount())
-                .orElseThrow(() -> new IllegalStateException("출금계좌 잔액이 부족합니다."));
+                .orElseThrow(() -> new TransferException("출금계좌 잔액이 부족합니다."));
     }
 
     public Optional<String> validateDepositAccount(Transactions transactions) {
         Optional<String> optionalUserId = accountRepository.findId(transactions.getAccountNumber());
         //입금계좌 유효성 확인
-        optionalUserId.orElseThrow(() -> new IllegalArgumentException("유효하지 않은 입금계좌 번호입니다."));
+        optionalUserId.orElseThrow(() -> new TransferException("유효하지 않은 입금계좌 번호입니다."));
         return optionalUserId;
     }
 

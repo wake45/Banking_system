@@ -21,7 +21,7 @@ public class EtcController {
 
         //테스트 데이터 삽입
         if(!onLoad){
-            dataInsertService.DataInsert();
+            //dataInsertService.DataInsert();
             onLoad = true;
         }
 

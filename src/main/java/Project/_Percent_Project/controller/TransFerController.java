@@ -4,10 +4,14 @@ import Project._Percent_Project.domain.Account;
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.service.AccountService;
 import Project._Percent_Project.service.TransactionsService;
+import Project._Percent_Project.service.TransferException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +40,9 @@ public class TransFerController {
     }
 
     @PostMapping("/transfer")
-    public String Transfer(TransferForm transferForm, Model model){
+    @ExceptionHandler(TransferException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500 상태 코드
+    public String Transfer(TransferForm transferForm, Model model) {
         // 오늘 날짜 구하기
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -48,17 +54,27 @@ public class TransFerController {
         Optional<String> depositId = accountService.validateDepositAccount(depositTransaction); //이체 전 입금계좌 수취조회
         withdrawTransaction.setDepositId(depositId.orElse(""));
         depositTransaction.setDepositId(depositId.orElse(""));
-        Optional<AccountBalancesForm> AfterBalance = accountService.transfer(withdrawTransaction, depositTransaction, transferForm.getAccountPassword());
+        Optional<AccountBalancesForm> AfterBalance;
+        try {
+            AfterBalance = accountService.transfer(withdrawTransaction, depositTransaction, transferForm.getAccountPassword());
+        } catch (TransferException e) {
+            System.out.println("TransferException : " + e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error"; // 오류 시 보여줄 뷰
+        }
 
         //거래내역 저장(출금,입금)
-        withdrawTransaction.setAccountBalance(AfterBalance.get().getWithdrawBalance());
-        depositTransaction.setAccountBalance(AfterBalance.get().getDepositBalance());
+        if (AfterBalance.isPresent()) {
+            AccountBalancesForm balances = AfterBalance.get();
+            withdrawTransaction.setAccountBalance(balances.getWithdrawBalance());
+            depositTransaction.setAccountBalance(balances.getDepositBalance());
+        }
         transactionsService.saveTransaction(withdrawTransaction);
         transactionsService.saveTransaction(depositTransaction);
 
         model.addAttribute("accountNumber", transferForm.getAccountNumber());
         model.addAttribute("accountBalance", transferForm.getAccountBalance());
-        model.addAttribute("accountAfterBalance", AfterBalance.map(balances -> balances.getWithdrawBalance()).orElse(0));
+        model.addAttribute("accountAfterBalance", AfterBalance.map(AccountBalancesForm::getWithdrawBalance).orElse(0));
         model.addAttribute("depositAccountNumber", transferForm.getDepositAccountNumber());
         model.addAttribute("depositId", depositId.orElse(""));
         model.addAttribute("memo", transferForm.getMemo());
