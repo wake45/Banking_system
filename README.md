@@ -33,3 +33,4 @@
 ## 11월 14일
 ### view, controller, service, repository 수정
 ### 기능 완성(- 페이징 처리 필요)
+### 페이징 기능 완성
