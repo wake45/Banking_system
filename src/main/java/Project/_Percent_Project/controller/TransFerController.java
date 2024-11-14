@@ -28,7 +28,7 @@ public class TransFerController {
         this.transactionsService = transactionsService;
     }
 
-    @PostMapping("/transferMenu")
+    @PostMapping("/transferViewMenu")
     public String TransferView(@RequestParam("id") String id, Model model){
         model.addAttribute("id",id);
 
