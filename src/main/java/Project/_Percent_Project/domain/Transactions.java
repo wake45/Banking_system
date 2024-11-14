@@ -2,8 +2,6 @@ package Project._Percent_Project.domain;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 public class Transactions {
 
@@ -14,7 +12,10 @@ public class Transactions {
     private String accountNumber;     //계좌번호 ID
 
     @Column(name = "transaction_amount")
-    private int transactionAmount;    //거래 금액
+    private int transactionAmount;    //거래
+
+    @Column(name = "account_balance")
+    private int accountBalance;    //이체 후 계좌 잔액
 
     @Column(name = "transaction_type")
     private String transactionType;   //거래 유형
@@ -53,6 +54,14 @@ public class Transactions {
 
     public void setTransactionAmount(int transactionAmount) {
         this.transactionAmount = transactionAmount;
+    }
+
+    public int getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(int accountBalance) {
+        this.accountBalance = accountBalance;
     }
 
     public String getTransactionType() {

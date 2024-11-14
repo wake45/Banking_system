@@ -1,5 +1,6 @@
 package Project._Percent_Project.service;
 
+import Project._Percent_Project.controller.AccountBalancesForm;
 import Project._Percent_Project.domain.Account;
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.repository.AccountRepository;
@@ -30,11 +31,13 @@ public class AccountService {
     /**
      * 이체
      */
-    public Optional<Integer> transfer(Transactions withdrawTransaction, Transactions depositTransaction, String accountPassword) {
-        Optional<Integer> AfterBalance = withdraw(withdrawTransaction, accountPassword);
-        deposit(depositTransaction);
+    public Optional<AccountBalancesForm> transfer(Transactions withdrawTransaction, Transactions depositTransaction, String accountPassword) {
+        Optional<Integer> withdrawAfterBalance = withdraw(withdrawTransaction, accountPassword);
+        Optional<Integer> depositAfterBalance = deposit(depositTransaction);
 
-        return AfterBalance;
+        AccountBalancesForm balances = new AccountBalancesForm(withdrawAfterBalance.get(), depositAfterBalance.get());
+
+        return Optional.of(balances);
     }
 
     /**
@@ -55,11 +58,11 @@ public class AccountService {
     /**
      * 입금
      */
-    public void deposit (Transactions transactions){ //입금
+    public Optional<Integer> deposit (Transactions transactions){ //입금
         try {
             //validateDepositAccount(transactions); //이체 전 수취조회를 위해 로직 분리
 
-            accountRepository.updateAccount(transactions); //입금 거래내역 적재
+            return accountRepository.updateAccount(transactions); //입금 거래내역 적재
         }catch (RuntimeException e){
             throw new RuntimeException("입금 처리 중 오류가 발생했습니다.", e);
         }

@@ -26,7 +26,7 @@ public class TransactionsHistoryInquiryController {
     }
 
     @PostMapping("/transactionsViewMenu")
-    public String TransferView(@RequestParam("action") String action, @RequestParam("id") String id, Model model){
+    public String TransferView(@RequestParam("id") String id, Model model){
         model.addAttribute("id",id);
 
         // 모델에 계좌 목록 추가

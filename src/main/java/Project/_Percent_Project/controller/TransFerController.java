@@ -25,7 +25,7 @@ public class TransFerController {
     }
 
     @PostMapping("/transferMenu")
-    public String TransferView(@RequestParam("action") String action, @RequestParam("id") String id, Model model){
+    public String TransferView(@RequestParam("id") String id, Model model){
         model.addAttribute("id",id);
 
         // 모델에 계좌 목록 추가
@@ -48,15 +48,17 @@ public class TransFerController {
         Optional<String> depositId = accountService.validateDepositAccount(depositTransaction); //이체 전 입금계좌 수취조회
         withdrawTransaction.setDepositId(depositId.orElse(""));
         depositTransaction.setDepositId(depositId.orElse(""));
-        Optional<Integer> AfterBalance = accountService.transfer(withdrawTransaction, depositTransaction, transferForm.getAccountPassword());
+        Optional<AccountBalancesForm> AfterBalance = accountService.transfer(withdrawTransaction, depositTransaction, transferForm.getAccountPassword());
 
         //거래내역 저장(출금,입금)
+        withdrawTransaction.setAccountBalance(AfterBalance.get().getWithdrawBalance());
+        depositTransaction.setAccountBalance(AfterBalance.get().getDepositBalance());
         transactionsService.saveTransaction(withdrawTransaction);
         transactionsService.saveTransaction(depositTransaction);
 
         model.addAttribute("accountNumber", transferForm.getAccountNumber());
         model.addAttribute("accountBalance", transferForm.getAccountBalance());
-        model.addAttribute("accountAfterBalance", AfterBalance.orElse(0));
+        model.addAttribute("accountAfterBalance", AfterBalance.map(balances -> balances.getWithdrawBalance()).orElse(0));
         model.addAttribute("depositAccountNumber", transferForm.getDepositAccountNumber());
         model.addAttribute("depositId", depositId.orElse(""));
         model.addAttribute("memo", transferForm.getMemo());

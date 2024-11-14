@@ -27,6 +27,7 @@
         <tr>
             <th>계좌 번호</th>
             <th>거래 금액</th>
+            <th>거래 후 잔액</th>
             <th>거래 유형</th>
             <th>입금 ID</th>
             <th>출금 ID</th>
@@ -38,6 +39,7 @@
         <tr th:each="transaction : ${transactionList}">
             <td th:text="${transaction.accountNumber}"></td>
             <td th:text="${transaction.transactionAmount}"></td>
+            <td th:text="${transaction.accountBalance}"></td>
             <td>
                 <span th:switch="${transaction.transactionType}">
                     <span th:case="01">출금</span>

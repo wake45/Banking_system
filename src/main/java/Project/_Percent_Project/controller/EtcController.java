@@ -19,10 +19,11 @@ public class EtcController {
     @GetMapping("/")
     public String LoginView(){
 
-//        if(!onLoad){
-//            dataInsertService.DataInsert();
-//            onLoad = true;
-//        }
+        //테스트 데이터 삽입
+        if(!onLoad){
+            dataInsertService.DataInsert();
+            onLoad = true;
+        }
 
         return "LoginView";
     }

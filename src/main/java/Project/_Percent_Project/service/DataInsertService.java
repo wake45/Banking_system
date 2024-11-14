@@ -1,13 +1,9 @@
 package Project._Percent_Project.service;
 
-import Project._Percent_Project.domain.Account;
-import Project._Percent_Project.repository.AccountRepository;
 import Project._Percent_Project.repository.DataInsertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
