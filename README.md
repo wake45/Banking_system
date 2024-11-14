@@ -29,3 +29,7 @@
 ## 11월 13일
 ### repository 수정 & service 생성
 ### repository, service, view 수정 & controller 생성 & 의존성 주입
+
+## 11월 14일
+### view, controller, service, repository 수정
+### 기능 완성(- 페이징 처리 필요)
