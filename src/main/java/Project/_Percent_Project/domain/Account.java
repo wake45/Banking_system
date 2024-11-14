@@ -8,20 +8,27 @@ import java.util.Date;
 
 @Entity
 public class Account {
+
     @Id @Column(name = "account_number")
     private String accountNumber;  //계좌번호
+
     @Column(name = "user_id")
     private String userId;         //사용자 ID
+
     @Column(name = "account_balance")
     private int accountBalance;    //계좌 잔액
+
     @Column(name = "account_password")
     private String accountPassword;//계좌 비밀번호
+
     @Column(name = "account_type")
     private String accountType;    //계좌 유형(01:입출금,02:예금,03:적금)
+
     @Column(name = "create_date")
-    private Date createDate;       //생성일
+    private String createDate;       //생성일
+
     @Column(name = "modify_date")
-    private Date modifyDate;       //수정일
+    private String modifyDate;       //수정일
 
     public String getAccountNumber() {
         return accountNumber;
@@ -63,19 +70,19 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getModifyDate() {
+    public String getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
     }
 }

@@ -7,33 +7,40 @@
 <body>
 <div class="container">
     <div>
-        <h1>거래내역조회</h1>
-        <table>
-            <tr>
-                <th>계좌번호</th>
-                <th>입출금통장 1001-1001</th>
-            </tr>
-            <tr>
-                <td>2024-10-26 09:00:01</td>
-                <td>입출금통장 1001-1002</td>
-            </tr>
-            <tr>
-                <td>출금</td>
-                <td>10,000원</td>
-            </tr>
-            <tr>
-                <td>잔액</td>
-                <td>0원</td>
-            </tr>
-            <tr>
-                <td>적요</td>
-                <td>만원 이체</td>
-            </tr>
+        <form action="#" th:action="@{/transactionsHistoryInquiry}" method="post">
+            <h1>거래내역조회</h1>
+            <input type="hidden" name="id" th:value="${id}"/>
+            <div>
+                <label for="accountNumber">계좌 선택:</label>
+                <select name="accountNumber" id="accountNumber">
+                    <option th:each="account : ${accountList}"
+                            th:value="${account.getAccountNumber()}"
+                            th:text="${account.getAccountNumber()}"></option>
+                </select>
+            </div>
 
-        </table>
-        <p>
-            <button>조회</button>
-        </p>
+            <div>
+                <label for="inquiryStartDate">조회기간</label>
+                <input type="text" id="inquiryStartDate" name="inquiryStartDate">
+                <label for="inquiryEndDate">~</label>
+                <input type="text" id="inquiryEndDate" name="inquiryEndDate">
+            </div>
+
+            <div>
+                <label>조회내용</label>
+                <input type="radio" name="inquiryType" value="" checked>전체
+                <input type="radio" name="inquiryType" value="01">입금내용만
+                <input type="radio" name="inquiryType" value="02">출금내용만
+            </div>
+
+            <div>
+                <label>조회내용</label>
+                <input type="radio" name="inquirySort" value="ASC" checked>최근 거래내역이 위로
+                <input type="radio" name="inquirySort" value="DESC">과거 거래내역이 위로
+            </div>
+
+            <button type="submit">조회</button>
+        </form>
     </div>
 </div> <!-- /container -->
 </body>

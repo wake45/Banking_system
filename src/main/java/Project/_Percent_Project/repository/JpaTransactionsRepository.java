@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -18,17 +17,17 @@ public class JpaTransactionsRepository implements TransactionsRepository {
     }
 
     @Override
-    public List<Transactions> findTransactions(String accountNumber, Date startDate, Date endDate, String transactionType, String sortOrder) {
+    public List<Transactions> findTransactions(String accountNumber, String startDate, String endDate, String transactionType, String sortOrder) {
         String queryString = "SELECT t FROM Transactions t WHERE t.accountNumber = :accountNumber " +
                              "AND t.transactionDate BETWEEN :startDate AND :endDate " +
-                             "AND t.transactionType = " + transactionType +
-                             "ORDER BY t.transactionType " + sortOrder;
+                             ("".equals(transactionType) ? "AND t.transactionType IS NOT NULL" : "AND t.transactionType = :transactionType") +
+                             " ORDER BY t.transactionType " + sortOrder;
 
         TypedQuery<Transactions> query = em.createQuery(queryString, Transactions.class)
                 .setParameter("accountNumber", accountNumber)
                 .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .setParameter("transactionType", transactionType);
+                .setParameter("endDate", endDate);
+        if(!"".equals(transactionType)) query.setParameter("transactionType", transactionType);
 
         return query.getResultList();
     }

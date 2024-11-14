@@ -7,16 +7,34 @@
 <body>
 <div class="container">
     <div>
-        <form action="#" th:action="@{/transfer}" method="post">
+        <form action="#" th:action="@{/menu}" method="post">
             <h1>메뉴 선택</h1>
             <h2><span style="color:springgreen" th:text="${name}"></span> 고객님 반갑습니다!</h2>
             <input type="hidden" name="id" th:value="${id}"/>
             <p>
-                <button type="submit" name="action" value="transactionsView">거래내역조회</button>
-                <button type="submit" name="action" value="transferView">이체</button>
+                <button type="button" onclick="submitForm('transactionsView')">거래내역조회</button>
+                <button type="button" onclick="submitForm('transferView')">이체</button>
             </p>
         </form>
     </div>
 </div> <!-- /container -->
 </body>
+
+<script>
+    function submitForm(action) {
+        const form = document.querySelector('form');
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'action';
+        input.value = action;
+        form.appendChild(input);
+        if (action === 'transactionsView') {
+            form.action = '/transactionsViewMenu';
+        }else if(action === 'transferView') {
+            form.action = '/transferMenu';
+        }
+        form.submit();
+    }
+</script>
+
 </html>

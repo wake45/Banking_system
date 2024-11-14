@@ -6,21 +6,30 @@ import java.util.Date;
 
 @Entity
 public class Transactions {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "transaction_id")
     private Long transactionId;        //거래 ID
+
     @Column(name = "account_number")
     private String accountNumber;     //계좌번호 ID
+
     @Column(name = "transaction_amount")
     private int transactionAmount;    //거래 금액
+
     @Column(name = "transaction_type")
     private String transactionType;   //거래 유형
+
     @Column(name = "deposit_id")
     private String depositId;         //입금 ID
+
     @Column(name = "withdraw_id")
     private String withdrawId;        //출금 ID
+
+    @Column(name = "memo")
     private String memo;              //적요
+
     @Column(name = "transaction_date")
-    private Date transactionDate;     //거래 일자
+    private String transactionDate;     //거래 일자
 
     public Long getTransactionId() {
         return transactionId;
@@ -78,11 +87,11 @@ public class Transactions {
         this.memo = memo;
     }
 
-    public Date getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 }

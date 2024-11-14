@@ -3,46 +3,54 @@
 <head>
     <title>거래내역조회</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div>
-        <h1>거래내역조회</h1>
-        <p>
-            <span>계좌번호</span>
-            <label>
-                <select>
-                    <option value="">---선택---</option>
-                </select>
-            </label>
-        </p>
-        <p>
-            <label>조회기간</label>
-            <label>
-                <input type="text"/>
-            </label>
-            <label>
-                <input type="text"/>
-            </label>
-        </p>
-        <p>
-            <label>조회내용</label>
-            <label>
-                <input type="radio" name="id" value="1">전체
-                <input type="radio" name="id" value="2">입금내역만
-                <input type="radio" name="id" value="3">출금내역만
-            </label>
-        </p>
-        <p>
-            <label>적요</label>
-            <label>
-                <input type="text">
-            </label>
-        </p>
-        <p>
-            <button>조회</button>
-        </p>
-    </div>
+    <h1>거래내역 조회 결과</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>계좌 번호</th>
+            <th>거래 금액</th>
+            <th>거래 유형</th>
+            <th>입금 ID</th>
+            <th>출금 ID</th>
+            <th>적요</th>
+            <th>거래 일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactionList}">
+            <td th:text="${transaction.accountNumber}"></td>
+            <td th:text="${transaction.transactionAmount}"></td>
+            <td>
+                <span th:switch="${transaction.transactionType}">
+                    <span th:case="01">출금</span>
+                    <span th:case="02">입금</span>
+                </span>
+            </td>
+            <td th:text="${transaction.depositId}"></td>
+            <td th:text="${transaction.withdrawId}"></td>
+            <td th:text="${transaction.memo}"></td>
+            <td th:text="${transaction.transactionDate}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div> <!-- /container -->
 </body>
 </html>

@@ -7,36 +7,37 @@
 <body>
 <div class="container">
     <div>
-        <h1>이체</h1>
-        <p>
-            <span>출금계좌선택</span>
-            <label>
-                <select>
-                    <option value="">---선택---</option>
-                </select>
-            </label>
-        </p>
-        <p>
-            <label>출금계좌 비밀번호</label>
-            <label>
-                <input type="text"/>
-            </label>
-        </p>
-        <p>
-            <label>보낼 금액</label>
-            <label>
-                <input type="text">
-            </label>
-        </p>
-        <p>
-            <label>입금계좌번호</label>
-            <label>
-                <input type="text">
-            </label>
-        </p>
-        <p>
-            <button>이체</button>
-        </p>
+        <h1>이체 완료</h1>
+
+        <div>
+            <label>출금계좌</label>
+            <text th:text="${accountNumber}"></text>
+        </div>
+
+        <div>
+            <label>보낸금액</label>
+            <text th:text="${accountBalance}"></text>
+        </div>
+
+        <div>
+            <label>계좌잔액</label>
+            <text th:text="${accountAfterBalance}"></text>
+        </div>
+
+        <div>
+            <label>입금 계좌번호</label>
+            <text th:text="${depositAccountNumber}"></text>
+        </div>
+
+        <div>
+            <label>받은사람</label>
+            <text th:text="${depositId}"></text>
+        </div>
+
+        <div>
+            <label>적요</label>
+            <text th:text="${memo}"></text>
+        </div>
     </div>
 </div> <!-- /container -->
 </body>

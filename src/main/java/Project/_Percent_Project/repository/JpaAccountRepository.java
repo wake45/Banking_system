@@ -48,7 +48,7 @@ public class JpaAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Transactions updateAccount(Transactions transactions) {
+    public Optional<Integer> updateAccount(Transactions transactions) {
 
         if("01".equals(transactions.getTransactionType())){ //출금
             em.createQuery("UPDATE Account a SET a.accountBalance = a.accountBalance - :accountBalance , a.modifyDate = :modifyDate WHERE a.accountNumber = :accountNumber ")
@@ -64,6 +64,9 @@ public class JpaAccountRepository implements AccountRepository {
                     .executeUpdate();
         }
 
-        return transactions;
+        return em.createQuery("select a.accountBalance from Account a where a.accountNumber = :accountNumber", Integer.class)
+                .setParameter("accountNumber", transactions.getAccountNumber())
+                .getResultStream()
+                .findFirst();
     }
 }

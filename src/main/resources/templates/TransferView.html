@@ -7,40 +7,41 @@
 <body>
 <div class="container">
     <div>
-        <h1>이체</h1>
-        <p>
-            <span>출금계좌번호</span>
-            <label>
-                <text>입출금통장 1001-1001</text>
-            </label>
-        </p>
-        <p>
-            <label>이체금액</label>
-            <label>
-                <text>10,000원</text>
-            </label>
-        </p>
-        <p>
-            <label>잔액</label>
-            <label>
-                <text>0원</text>
-            </label>
-        </p>
-        <p>
-            <label>입금계좌번호</label>
-            <label>
-                <text>입출금통장 1001-1002</text>
-            </label>
-        </p>
-        <p>
-            <label>받는사람</label>
-            <label>
-                <text>홍길동</text>
-            </label>
-        </p>
-        <p>
-            <button>확인</button>
-        </p>
+        <form action="#" th:action="@{/transfer}" method="post">
+            <h1>이체</h1>
+
+            <input type="hidden" name="id" th:value="${id}"/>
+            <div>
+                <label for="accountNumber">계좌 선택:</label>
+                <select name="accountNumber" id="accountNumber">
+                    <option th:each="account : ${accountList}"
+                            th:value="${account.getAccountNumber()}"
+                            th:text="${account.getAccountNumber()}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="accountPassword">계좌비밀번호</label>
+                <input type="text" id="accountPassword" name="accountPassword">
+            </div>
+
+            <div>
+                <label for="accountBalance">보낼금액</label>
+                <input type="text" id="accountBalance" name="accountBalance">
+            </div>
+
+            <div>
+                <label for="depositAccountNumber">입금 계좌번호</label>
+                <input type="text" id="depositAccountNumber" name="depositAccountNumber">
+            </div>
+
+            <div>
+                <label for="memo">적요</label>
+                <input type="text" id="memo" name="memo">
+            </div>
+
+            <button type="submit">이체</button>
+        </form>
     </div>
 </div> <!-- /container -->
 </body>

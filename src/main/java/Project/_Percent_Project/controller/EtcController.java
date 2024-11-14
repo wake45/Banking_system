@@ -1,5 +1,6 @@
 package Project._Percent_Project.controller;
 
+import Project._Percent_Project.service.DataInsertService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EtcController {
+    private final DataInsertService dataInsertService;
+    private boolean onLoad = false;
+
+    public EtcController(DataInsertService dataInsertService) {
+        this.dataInsertService = dataInsertService;
+    }
+
     @GetMapping("/")
     public String LoginView(){
+
+        if(!onLoad){
+            dataInsertService.DataInsert();
+            onLoad = true;
+        }
+
         return "LoginView";
     }
 
@@ -21,21 +35,11 @@ public class EtcController {
             case "003" -> "토스뱅크";
             default -> "";
         };
+        System.out.println("로그인 ID : " + id);
+
         model.addAttribute("name",name);
         model.addAttribute("id",id);
         return "MainView";
     }
 
-    @PostMapping("/transfer")
-    public String TransferView(@RequestParam("action") String action, @RequestParam("id") String id, Model model){
-        model.addAttribute("id",id);
-
-        if ("transactionsView".equals(action)) {
-            return "TransactionsHistoryInquiryView"; // 거래내역조회 페이지로 이동
-        } else if ("transferView".equals(action)) {
-            return "TransferView"; // 이체 페이지로 이동
-        }
-
-        return "ErrorPage"; // 잘못된 요청 처리
-    }
 }

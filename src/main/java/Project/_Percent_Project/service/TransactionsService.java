@@ -22,7 +22,7 @@ public class TransactionsService {
     /**
      * 거래내역 조회
      */
-    public List<Transactions> findTransactions(String accountNumber, Date startDate, Date endDate, String transactionType, String sortOrder){
+    public List<Transactions> findTransactions(String accountNumber, String startDate, String endDate, String transactionType, String sortOrder){
         return transactionsRepository.findTransactions(accountNumber, startDate, endDate, transactionType, sortOrder);
     }
 

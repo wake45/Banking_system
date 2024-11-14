@@ -1,11 +1,13 @@
 package Project._Percent_Project.service;
 
+import Project._Percent_Project.domain.Account;
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,25 +21,48 @@ public class AccountService {
     }
 
     /**
+     * 보유계좌 조회
+     */
+    public List<Account> findById(String userId){
+        return accountRepository.findById(userId);
+    }
+
+    /**
+     * 이체
+     */
+    public Optional<Integer> transfer(Transactions withdrawTransaction, Transactions depositTransaction, String accountPassword) {
+        Optional<Integer> AfterBalance = withdraw(withdrawTransaction, accountPassword);
+        deposit(depositTransaction);
+
+        return AfterBalance;
+    }
+
+    /**
      * 출금
      */
-    public Long withdraw(Transactions transactions, String password){  //출금
-        validateAccountOwner(transactions); //계좌 소유주 확인
-        validateAccountPassword(transactions, password); //계좌 비밀번호 확인
-        validateAccountBalance(transactions); //계좌 잔액 확인
+    public Optional<Integer> withdraw(Transactions transactions, String password){  //출금
+        try {
+            validateAccountOwner(transactions); //계좌 소유주 확인
+            validateAccountPassword(transactions, password); //계좌 비밀번호 확인
+            validateAccountBalance(transactions); //계좌 잔액 확인
 
-        accountRepository.updateAccount(transactions); //출금 거래내역 적재
-        return transactions.getTransactionId();
+            return accountRepository.updateAccount(transactions); //출금 거래내역 적재
+        }catch (RuntimeException e){
+            throw new RuntimeException("출금 처리 중 오류가 발생했습니다.", e);
+        }
     }
     
     /**
      * 입금
      */
-    public Long deposit (Transactions transactions){ //입금
-        validateDepositAccount(transactions); //입금계좌 유효성 확인
+    public void deposit (Transactions transactions){ //입금
+        try {
+            //validateDepositAccount(transactions); //이체 전 수취조회를 위해 로직 분리
 
-        accountRepository.updateAccount(transactions); //입금 거래내역 적재
-        return transactions.getTransactionId();
+            accountRepository.updateAccount(transactions); //입금 거래내역 적재
+        }catch (RuntimeException e){
+            throw new RuntimeException("입금 처리 중 오류가 발생했습니다.", e);
+        }
     }
 
     private void validateAccountOwner(Transactions transactions) {
@@ -57,13 +82,15 @@ public class AccountService {
     private void validateAccountBalance(Transactions transactions) {
         Optional<Integer> optionalBalance = accountRepository.findBalance(transactions.getAccountNumber());
         //계좌 잔액 확인
-        optionalBalance.filter(balanceCheck -> balanceCheck < transactions.getTransactionAmount())
+        optionalBalance.filter(balanceCheck -> balanceCheck >= transactions.getTransactionAmount())
                 .orElseThrow(() -> new IllegalStateException("출금계좌 잔액이 부족합니다."));
     }
 
-    private void validateDepositAccount(Transactions transactions) {
+    public Optional<String> validateDepositAccount(Transactions transactions) {
         Optional<String> optionalUserId = accountRepository.findId(transactions.getAccountNumber());
         //입금계좌 유효성 확인
         optionalUserId.orElseThrow(() -> new IllegalArgumentException("유효하지 않은 입금계좌 번호입니다."));
+        return optionalUserId;
     }
+
 }
