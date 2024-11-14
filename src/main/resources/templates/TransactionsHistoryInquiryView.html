@@ -10,6 +10,7 @@
         <form action="#" th:action="@{/transactionsHistoryInquiry}" method="post">
             <h1>거래내역조회</h1>
             <input type="hidden" name="id" th:value="${id}"/>
+            <input type="hidden" name="page" value="0"/>
             <div>
                 <label for="accountNumber">계좌 선택:</label>
                 <select name="accountNumber" id="accountNumber">
@@ -29,8 +30,8 @@
             <div>
                 <label>조회내용</label>
                 <input type="radio" name="inquiryType" value="" checked>전체
-                <input type="radio" name="inquiryType" value="01">입금내용만
-                <input type="radio" name="inquiryType" value="02">출금내용만
+                <input type="radio" name="inquiryType" value="01">출금내용만
+                <input type="radio" name="inquiryType" value="02">입금내용만
             </div>
 
             <div>

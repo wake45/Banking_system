@@ -3,11 +3,10 @@ package Project._Percent_Project.service;
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.repository.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
-import java.util.List;
 
 @Service
 @Transactional
@@ -22,8 +21,8 @@ public class TransactionsService {
     /**
      * 거래내역 조회
      */
-    public List<Transactions> findTransactions(String accountNumber, String startDate, String endDate, String transactionType, String sortOrder){
-        return transactionsRepository.findTransactions(accountNumber, startDate, endDate, transactionType, sortOrder);
+    public Page<Transactions> findTransactions(String accountNumber, String startDate, String endDate, String transactionType, String sortOrder, Pageable pageable) {
+        return transactionsRepository.findTransactions(accountNumber, startDate, endDate, transactionType, sortOrder, pageable);
     }
 
     /**

@@ -51,6 +51,22 @@
         </tr>
         </tbody>
     </table>
+
+    <form action="#" method="post" th:action="@{/transactionsHistoryInquiry}">
+
+    <th:block th:if="${!#strings.isEmpty(transactionsHistoryInquiryForm.getAccountNumber())}" th:each="page : ${#numbers.sequence(startPage + 1, endPage + 1)}">
+        <button th:if="${page - 1 != nowPage}" th:text="${page}" th:value="${page - 1}"  type="submit" name="page"></button>
+        <strong th:if="${page - 1 == nowPage}" th:text="${page}"></strong>
+    </th:block>
+
+    <input type="hidden" name="id" th:value="${transactionsHistoryInquiryForm.getId()}"/>
+    <input type="hidden" name="accountNumber" th:value="${transactionsHistoryInquiryForm.getAccountNumber()}">
+    <input type="hidden" name="inquiryStartDate" th:value="${transactionsHistoryInquiryForm.getInquiryStartDate()}">
+    <input type="hidden" name="inquiryEndDate" th:value="${transactionsHistoryInquiryForm.getInquiryEndDate()}">
+    <input type="hidden" name="inquiryType" th:value="${transactionsHistoryInquiryForm.getInquiryType()}">
+    <input type="hidden" name="inquirySort" th:value="${transactionsHistoryInquiryForm.getInquirySort()}">
+
+    </form>
 </div> <!-- /container -->
 </body>
 </html>
