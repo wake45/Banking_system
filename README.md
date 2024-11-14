@@ -46,6 +46,8 @@
 ### 2. TransactionsHistoryInquiry(/transactionsHistoryInquiry) : 실제 거래내역 조회(주요 고려사항대로 개발) 및 페이징 처리 후 거래내역 조회 결과화면으로 이동
 #### - 전달데이터 : TransactionsHistoryInquiryForm객체(조회계좌번호, 조회시작일자, 조회종료일자, 입출금 조회구분, 정렬 방식, ID) , page(현재 페이지)
 
+![API설명서](https://github.com/user-attachments/assets/9e743777-c04d-4631-b928-663814aadc94)
+
 # History
 ## 10월 26일 
 ### Git Repository 생성
