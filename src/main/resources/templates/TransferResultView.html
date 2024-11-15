@@ -1,44 +1,101 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>거래내역조회</title>
+    <title>이체 완료</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        div {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        .result {
+            padding: 10px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        button {
+            background-color: springgreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
+    <h1>이체 완료</h1>
+
     <div>
-        <h1>이체 완료</h1>
-
-        <div>
-            <label>출금계좌</label>
-            <text th:text="${accountNumber}"></text>
-        </div>
-
-        <div>
-            <label>보낸금액</label>
-            <text th:text="${accountBalance}"></text>
-        </div>
-
-        <div>
-            <label>계좌잔액</label>
-            <text th:text="${accountAfterBalance}"></text>
-        </div>
-
-        <div>
-            <label>입금 계좌번호</label>
-            <text th:text="${depositAccountNumber}"></text>
-        </div>
-
-        <div>
-            <label>받은사람</label>
-            <text th:text="${depositId}"></text>
-        </div>
-
-        <div>
-            <label>적요</label>
-            <text th:text="${memo}"></text>
-        </div>
+        <label>출금계좌</label>
+        <div class="result" th:text="${accountNumber}"></div>
     </div>
+
+    <div>
+        <label>보낸금액</label>
+        <div class="result" th:text="${accountBalance}"></div>
+    </div>
+
+    <div>
+        <label>계좌잔액</label>
+        <div class="result" th:text="${accountAfterBalance}"></div>
+    </div>
+
+    <div>
+        <label>입금 계좌번호</label>
+        <div class="result" th:text="${depositAccountNumber}"></div>
+    </div>
+
+    <div>
+        <label>받은사람</label>
+        <div class="result" th:text="${depositId}"></div>
+    </div>
+
+    <div>
+        <label>적요</label>
+        <div class="result" th:text="${memo}"></div>
+    </div>
+
+<!--    <button onclick="window.location.href='/home'">홈으로 돌아가기</button>-->
 </div> <!-- /container -->
 </body>
 </html>

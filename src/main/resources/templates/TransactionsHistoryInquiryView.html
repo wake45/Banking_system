@@ -1,48 +1,122 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>거래내역조회</title>
+    <title>거래내역 조회</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        div {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            background-color: springgreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .date-range {
+            display: flex;
+            align-items: center; /* 수직 정렬을 중앙으로 */
+            margin: 15px 0; /* 위아래 여백 추가 */
+        }
+
+        .date-range label {
+            margin-right: 10px; /* 레이블과 입력 필드 간 간격 */
+        }
+
+        .date-range input {
+            margin-right: 10px; /* 입력 필드 간 간격 */
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
-    <div>
-        <form action="#" th:action="@{/transactionsHistoryInquiry}" method="post">
-            <h1>거래내역조회</h1>
-            <input type="hidden" name="id" th:value="${id}"/>
-            <input type="hidden" name="page" value="0"/>
-            <div>
-                <label for="accountNumber">계좌 선택:</label>
-                <select name="accountNumber" id="accountNumber">
-                    <option th:each="account : ${accountList}"
-                            th:value="${account.getAccountNumber()}"
-                            th:text="${account.getAccountNumber()}"></option>
-                </select>
-            </div>
+    <form action="#" th:action="@{/transactionsHistoryInquiry}" method="post">
+        <h1>거래내역 조회</h1>
+        <input type="hidden" name="id" th:value="${id}"/>
+        <input type="hidden" name="page" value="0"/>
 
-            <div>
-                <label for="inquiryStartDate">조회기간</label>
-                <input type="text" id="inquiryStartDate" name="inquiryStartDate">
-                <label for="inquiryEndDate">~</label>
-                <input type="text" id="inquiryEndDate" name="inquiryEndDate">
-            </div>
+        <div>
+            <label for="accountNumber">계좌 선택:</label>
+            <select name="accountNumber" id="accountNumber">
+                <option th:each="account : ${accountList}"
+                        th:value="${account.getAccountNumber()}"
+                        th:text="${account.getAccountNumber()}"></option>
+            </select>
+        </div>
 
-            <div>
-                <label>조회내용</label>
-                <input type="radio" name="inquiryType" value="" checked>전체
-                <input type="radio" name="inquiryType" value="01">출금내용만
-                <input type="radio" name="inquiryType" value="02">입금내용만
-            </div>
+        <div>
+            <label for="inquiryStartDate">조회기간</label>
+        </div>
+        <div class="date-range">
+            <input type="text" id="inquiryStartDate" name="inquiryStartDate" placeholder="시작 날짜" required>
+            <label for="inquiryEndDate">~</label>
+            <input type="text" id="inquiryEndDate" name="inquiryEndDate" placeholder="종료 날짜" required>
+        </div>
 
-            <div>
-                <label>조회내용</label>
-                <input type="radio" name="inquirySort" value="ASC" checked>최근 거래내역이 위로
-                <input type="radio" name="inquirySort" value="DESC">과거 거래내역이 위로
-            </div>
+        <div>
+            <label>조회내용</label>
+            <input type="radio" name="inquiryType" value="" checked>전체
+            <input type="radio" name="inquiryType" value="01">출금내용만
+            <input type="radio" name="inquiryType" value="02">입금내용만
+        </div>
 
-            <button type="submit">조회</button>
-        </form>
-    </div>
+        <div>
+            <label>정렬 기준</label>
+            <input type="radio" name="inquirySort" value="ASC" checked>최근 거래내역이 위로
+            <input type="radio" name="inquirySort" value="DESC">과거 거래내역이 위로
+        </div>
+
+        <button type="submit">조회</button>
+    </form>
 </div> <!-- /container -->
 </body>
 </html>

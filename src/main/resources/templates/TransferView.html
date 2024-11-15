@@ -1,48 +1,100 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>거래내역조회</title>
+    <title>이체</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        div {
+            margin: 15px 0;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: springgreen;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div>
-        <form action="#" th:action="@{/transfer}" method="post">
-            <h1>이체</h1>
+    <form action="#" th:action="@{/transfer}" method="post">
+        <h1>이체</h1>
 
-            <input type="hidden" name="id" th:value="${id}"/>
-            <div>
-                <label for="accountNumber">계좌 선택:</label>
-                <select name="accountNumber" id="accountNumber">
-                    <option th:each="account : ${accountList}"
-                            th:value="${account.getAccountNumber()}"
-                            th:text="${account.getAccountNumber()}"></option>
-                </select>
-            </div>
+        <input type="hidden" name="id" th:value="${id}"/>
 
-            <div>
-                <label for="accountPassword">계좌비밀번호</label>
-                <input type="text" id="accountPassword" name="accountPassword">
-            </div>
+        <div>
+            <label for="accountNumber">계좌 선택:</label>
+            <select name="accountNumber" id="accountNumber">
+                <option th:each="account : ${accountList}"
+                        th:value="${account.getAccountNumber()}"
+                        th:text="${account.getAccountNumber()}"></option>
+            </select>
+        </div>
 
-            <div>
-                <label for="accountBalance">보낼금액</label>
-                <input type="text" id="accountBalance" name="accountBalance">
-            </div>
+        <div>
+            <label for="accountPassword">계좌 비밀번호</label>
+            <input type="text" id="accountPassword" name="accountPassword" required>
+        </div>
 
-            <div>
-                <label for="depositAccountNumber">입금 계좌번호</label>
-                <input type="text" id="depositAccountNumber" name="depositAccountNumber">
-            </div>
+        <div>
+            <label for="accountBalance">보낼 금액</label>
+            <input type="text" id="accountBalance" name="accountBalance" required>
+        </div>
 
-            <div>
-                <label for="memo">적요</label>
-                <input type="text" id="memo" name="memo">
-            </div>
+        <div>
+            <label for="depositAccountNumber">입금 계좌번호</label>
+            <input type="text" id="depositAccountNumber" name="depositAccountNumber" required>
+        </div>
 
-            <button type="submit">이체</button>
-        </form>
-    </div>
+        <div>
+            <label for="memo">적요</label>
+            <input type="text" id="memo" name="memo">
+        </div>
+
+        <button type="submit">이체</button>
+    </form>
 </div> <!-- /container -->
 </body>
 </html>
