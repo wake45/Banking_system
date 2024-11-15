@@ -58,4 +58,34 @@
 ### DB구축(SQlite)
 
 ## 10월 27일
-### 작
+### 설계서 작성(ppt)
+### DB수정(적요 항목 추가)
+
+## 10월 28일
+### 설계서 수정(ERD)
+### DB수정(계좌 비밀번호 항목 추가)
+
+## 11월 4일
+### 화면 그리기
+
+## 11월 10일
+### DB연결 및 기초 데이터 INSERT
+
+## 11월 12일
+### domain & repository 생성
+
+## 11월 13일
+### repository 수정 & service 생성
+### repository, service, view 수정 & controller 생성 & 의존성 주입
+
+## 11월 14일
+### view, controller, service, repository 수정
+### 기능 완성(- 페이징 처리 필요)
+### 페이징 기능 완성
+### 에러 페이지 추가 
+
+## 11월 15일
+### Transaction DB 내 이체 후 계좌 잔액 컬럼 추가 및 관련 로직 수정
+### 추가 수정 및 에러페이지 수정(에러 메세지 커스터 마이징은 예정)
+### View 꾸미기 및 Functional Test 시나리오 제작
+### Unit Test 제작
