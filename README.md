@@ -1,5 +1,5 @@
 # 설명
-## 프로젝트명 : Banking_system
+## 프로젝트명 : Banking_system( 이체, 거래내역조회 )
 ## 사용기술 : Java, JavaScript, SQlite, SpringBoot, JPA
 ## 기간 : 2024년 10/26 ~ 11/15 
 
