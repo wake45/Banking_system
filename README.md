@@ -1,5 +1,5 @@
 # 설명
-## 프로젝트명 : 8Percent Coding Project
+## 프로젝트명 : Banking_system
 ## 사용기술 : Java, JavaScript, SQlite, SpringBoot, JPA
 ## 기간 : 2024년 10/26 ~ 11/15 
 
