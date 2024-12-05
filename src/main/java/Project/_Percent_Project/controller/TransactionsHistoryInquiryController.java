@@ -43,7 +43,7 @@ public class TransactionsHistoryInquiryController {
         //조회 전 계좌 소유주 조회
         Transactions transaction = new Transactions();
         transaction.setAccountNumber(transactionsHistoryInquiryForm.getAccountNumber());
-        accountService.validateDepositAccount(transaction);
+        accountService.validateDepositAccount(transaction); //validateAccountOwner
 
         Sort sort = transactionsHistoryInquiryForm.getInquirySort().equalsIgnoreCase("asc") ?
                 Sort.by("transactionDate").ascending() :

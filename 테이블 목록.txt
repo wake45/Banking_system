@@ -1,0 +1,30 @@
+CREATE TABLE Users (
+    user_id TEXT PRIMARY KEY,          -- 사용자 ID (기본키)
+    user_name TEXT NOT NULL,           -- 사용자 이름
+    create_date TEXT NOT NULL,         -- 생성일
+    modify_date TEXT NOT NULL          -- 수정일
+);
+
+CREATE TABLE Account (
+	account_number TEXT PRIMARY KEY,                  -- 계좌번호 (기본키)
+    user_id TEXT NOT NULL,                            -- 사용자 ID (외래키)
+    account_balance REAL NOT NULL,                    -- 계좌 잔액
+    account_password TEXT NOT NULL,                   -- 계좌 비밀번호
+    account_type TEXT NOT NULL,                       -- 계좌 유형
+    create_date TEXT NOT NULL,                        -- 생성일
+    modify_date TEXT NOT NULL,                        -- 수정일
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)   -- 외래키 제약조건
+);
+
+CREATE TABLE Transactions (                            
+    transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,   -- 거래ID (기본키)
+    account_number TEXT NOT NULL,                       -- 계좌번호 (외래키)
+    transaction_amount REAL NOT NULL,                   -- 거래 금액
+	account_balance REAL NOT NULL,                    	-- 거래 후 계좌 잔액
+    transaction_type TEXT NOT NULL,                     -- 거래 유형
+    deposit_id TEXT,                                    -- 입금 ID (선택적)
+    withdraw_id TEXT,                                   -- 출금 ID (선택적)
+    memo TEXT,                                          -- 적요
+    transaction_date TEXT NOT NULL,                     -- 거래일
+    FOREIGN KEY (account_number) REFERENCES Account(account_number) -- 외래키 제약조건
+);
