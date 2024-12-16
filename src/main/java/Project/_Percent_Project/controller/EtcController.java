@@ -4,7 +4,6 @@ import Project._Percent_Project.service.DataInsertService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -28,7 +27,7 @@ public class EtcController {
         return "LoginView";
     }
 
-    @PostMapping("/main")
+    @GetMapping("/main")
     public String MainView(@RequestParam("id") String id, Model model){
         String name = switch (id) {
             case "001" -> "에잇퍼센트";

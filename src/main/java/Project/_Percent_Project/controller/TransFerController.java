@@ -8,10 +8,7 @@ import Project._Percent_Project.service.TransferException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +25,7 @@ public class TransFerController {
         this.transactionsService = transactionsService;
     }
 
-    @PostMapping("/transferViewMenu")
+    @GetMapping("/transferViewMenu")
     public String TransferView(@RequestParam("id") String id, Model model){
         model.addAttribute("id",id);
 

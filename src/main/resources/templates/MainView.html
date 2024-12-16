@@ -47,7 +47,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="#" th:action="@{/menu}" method="post">
+    <form action="#" th:action="@{/menu}" method="get">
         <h1>메뉴 선택</h1>
         <h2><span th:text="${name}"></span> 고객님 반갑습니다!</h2>
         <input type="hidden" name="id" th:value="${id}"/>
