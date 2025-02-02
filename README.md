@@ -89,3 +89,6 @@
 ### 추가 수정 및 에러페이지 수정(에러 메세지 커스터 마이징은 예정)
 ### View 꾸미기 및 Functional Test 시나리오 제작
 ### Unit Test 제작
+
+## 실행방법
+### .\gradlew.bat bootRun

@@ -4,7 +4,6 @@ import Project._Percent_Project.controller.AccountBalancesForm;
 import Project._Percent_Project.domain.Account;
 import Project._Percent_Project.domain.Transactions;
 import Project._Percent_Project.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,6 @@ import java.util.Optional;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    @Autowired
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }

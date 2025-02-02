@@ -1,6 +1,6 @@
 package Project._Percent_Project.controller;
 
-import Project._Percent_Project.service.DataInsertService;
+//import Project._Percent_Project.service.DataInsertService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EtcController {
-    private final DataInsertService dataInsertService;
+    //private final DataInsertService dataInsertService;
     private boolean onLoad = false;
-
+    /*
     public EtcController(DataInsertService dataInsertService) {
         this.dataInsertService = dataInsertService;
     }
-
+    */
     @GetMapping("/")
     public String LoginView(){
 
